@@ -1,7 +1,7 @@
 
 <?php
 
-include_once("config/dbconn.php");
+include_once("../config/dbconn.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,24 +13,24 @@ include_once("config/dbconn.php");
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="./assets/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="./assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="./assets/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="login.php" class="h1"><b>Admin</b>LTE</a>
+      <a href="login.php" class="h1"><b>Login</b>in</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
       
       
-      <form action="#" method="post">
+      <form method="post">
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Email" name="email">
           <div class="input-group-append">
@@ -58,7 +58,7 @@ include_once("config/dbconn.php");
           </div>
           <!-- /.col -->
           <div class="col-12"><br>
-            <button onclick="login()" type="submit" class="mb-1 btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="mb-1 btn btn-primary btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
@@ -92,8 +92,9 @@ include_once("config/dbconn.php");
 <?php 
 
    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
      
-     if ($_POST['pass'] == "chand12" && $_POST['email'] == "chand@gmail.com") {
+     if ($_POST['pass'] == "chan12" && $_POST['email'] == "chan@gmail.com") {
        header("Location: index.php");  
        exit();  
       }
@@ -104,8 +105,6 @@ include_once("config/dbconn.php");
 ?>
 
 
-
-
 <!-- jQuery -->
 <!-- <script src="./assets/plugins/jquery/jquery.min.js"></script> -->
 <!-- Bootstrap 4 -->
@@ -114,4 +113,20 @@ include_once("config/dbconn.php");
 <!-- <script src="./assets/dist/js/adminlte.min.js"></script> -->
 <!-- <script src="login.js"></script> -->
 </body>
+<script>
+  if () { 
+   
+   
+  } else {
+    
+  }
+// let email = document.getElementsByName('email').values;
+// let pass = document.getElementsByName('pass').values;
+
+//   if (email== ""|| pass =="") {
+   
+//   } else {
+    
+//   }
+</script>
 </html>

@@ -46,42 +46,78 @@ include_once("sidebar.php");
       rel="stylesheet"
     />
 </head>
-<?php 
+<body class="hold-transition sidebar-mini">
 
+<!-- ------------ Update ------------ -->
+<?php
+
+
+//Reading record for specific id
+if (isset($_GET['id'])) {
+  $id = intval($_GET['id']); // Use intval to sanitize input
+  // Connect to the database
+  
+
+  // Fetch the record to display in the form
+  $sql = "SELECT * FROM registration WHERE id = $id";
+  $result = mysqli_query($conn,$sql);
+
+  if (!$result) {
+      die('Could not get data: ' . mysqli_error($conn));
+  }
+  $username= $email = $password= $note ='';
+  while ($row = mysqli_fetch_assoc($result)) {
+     
+      $username= $row['userName'];
+      $email= $row['email']; 
+      $password= $row['password'];
+      $note= $row['note'];
+      $isAdmin =$row['isAdmin'];
+        
+  }
+  
+}
+?>
+     <?php 
+// Updating record for specific id
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if ($_POST['username']=='' || $_POST['email']=='' || $_POST['password']=='' ) {
-    // echo "Pleace fill all inputs";
+  // if ($_POST['username']=='' || $_POST['email']=='' || $_POST['password']=='' ) {
+  //   echo "Pleace fill all inputs";
     
-  } else {
+  // } else {
     
-    $username = trim($_POST["username"]);
-    $email = trim($_POST["email"]);
-    $password = trim($_POST["password"]);
-    $note = trim($_POST["note"]);
+    $username = $_POST["username"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $note = $_POST["note"];
     $isAdmin = $_POST["isAdmin"];
-    // echo $isAdmin;
 
-    $sql ="insert into registration".
-    "(userName, email, password, note, isAdmin)"."values".
-    "('$username','$email','$password','$note','$isAdmin')";
+    // $sql ="insert into registration".
+    // "(userName, email, password, note)"."values".
+    // "('$username','$email','$password','$note')";
+    $sql ="UPDATE registration SET userName ='$username', email='$email',".
+    "password='$password',note='$note', isAdmin='$isAdmin' WHERE id=$id";
+    
+
        
     if (mysqli_query($conn, $sql)) {
-      $username= $email= $password= $note =$isAdmin ='';
+      $username= $email= $password= $note ='';
      
-      echo "<script>
+      echo '<script>        
           // history.go(-2);
-          window.location.href = 'userList.php' ;
-          </script>";
+          window.location.href ="userList.php";
+          </script>';
       
       // echo "New record created successfully";
     } else {
       echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
   } 
-}
+
 mysqli_close($conn);
 ?>
-<body class="hold-transition sidebar-mini">
+
+<!-- ---------- /Update -------------- -->
 
   <!-- Navbar -->
 
@@ -97,7 +133,7 @@ mysqli_close($conn);
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Add User</h1>
+            <h1>Update User</h1>
           </div>
           
 
@@ -105,7 +141,7 @@ mysqli_close($conn);
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Add User</li>
+              <li class="breadcrumb-item active">Update User</li>
             </ol>
           </div>
         </div>
@@ -118,63 +154,62 @@ mysqli_close($conn);
         <div style="margin:auto auto;" class="col-md-8">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Add New User</h3>
+              <h3 class="card-title">Update User</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                   <i class="fas fa-minus"></i></button>
               </div>
             </div>
-            <form id="form1" method="post">
+            <form method="post">
               <div class="card-body">
                 <div class="form-group">
                   <label for="inputName">User Name</label>
-                  <input type="text" id="inputName" class="form-control" name="username" required>
+                  <input type="text" id="inputName" class="form-control" name="username" value="<?php echo $username ?>" required>
                 </div>
                 <div class="form-group">
                   <label for="inputClientCompany">Email</label>
-                  <input type="email" id="inputClientCompany" class="form-control" name="email" required>
+                  <input type="email" id="inputClientCompany" class="form-control" name="email" value="<?php echo $email ?>" required>
                 </div>
                 <div class="form-group">
                   <label for="inputProjectLeader">Password</label>
-                  <input type="password" id="inputProjectLeader" class="form-control" name="password" required>
+                  <input type="text" id="inputProjectLeader" class="form-control" name="password" value="<?php echo $password ?>" required>
                 </div>
                 <div class="form-group">
                   <label for="inputDescription">Description</label>
-                  <textarea id="inputDescription" class="form-control" rows="4" name="note" required></textarea>
+                  <textarea id="inputDescription" class="form-control" rows="4" name="note" value="<?php echo $note ?>" required><?php echo $note ?></textarea>
                 </div>
                 <div class="form-group">
                   <label for="inputStatus">Make Admin</label>
                   <select class="form-control custom-select" name="isAdmin">
-                    <option value="False" selected>False</option>
-                    <option value="True">True</option>
+                    <option selected><?php echo $isAdmin ?></option>
+                    <option value="False">False</option>
+                    <option value="Ture">True</option>
                   </select>
                 </div>
                 
               </div>
             
-            <!-- /.card-body -->
+                <!-- /.card-body -->
               </div>
               <!-- /.card -->
               <div class="row">
                 <div class="col-12">
                   <a href="index.php" class="btn btn-secondary">Cancel</a>
-                  <input type="submit" value="Create new Porject" class="btn btn-success float-right">
+                  <input type="submit" value="Update" class="btn btn-success float-right">
                 </div>
               </div>
             </form>
         </div>
         
       </div>
-
+ 
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
   <!-- Footer -->
-
-
 
 <!-- --------------------------------------------------- -->
 
@@ -354,6 +389,9 @@ mysqli_close($conn);
       });
     </script>
 <!-- --------------------------------------------------- -->
+
+</body>
+</html>
 
   <!-- /Footer -->
 

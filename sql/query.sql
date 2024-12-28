@@ -1,6 +1,7 @@
-CREATE DATABASE admindb;
+-- Active: 1732421373194@@127.0.0.1@3306@users
+CREATE DATABASE users;
 
-use admindb;
+use users;
 
 CREATE TABLE registration (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -8,6 +9,7 @@ CREATE TABLE registration (
     email VARCHAR(100),
     password VARCHAR(100),
     note VARCHAR(200),
+    isAdmin VARCHAR(10),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -16,25 +18,29 @@ INSERT INTO
         userName,
         email,
         password,
-        note
+        note,
+        isAdmin
     )
 VALUES (
         "Chandan",
         "chand@gamil.com",
         "chand12",
-        "Hello guys."
+        "Hello guys.",
+        "True"
     ),
     (
         "Akshay",
         "ak@gamil.com",
         "ak12",
-        "Hello guys. My name is Akshay."
+        "Hello guys. My name is Akshay.",
+        "True"
     ),
     (
         "Parshu",
         "parshu@gamil.com",
         "parshu",
-        "Hello guys. I'm Parshu"
+        "Hello guys. I'm Parshu",
+        "False"
     );
 
 SELECT * from registration;
